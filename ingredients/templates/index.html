@@ -1,0 +1,104 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Palette Test</title>
+    {% tailwind_css %}
+    
+    <style>
+        /* Fallback: If your build hasn't finished, these variables 
+           ensure the test works immediately */
+        :root {
+            --sushi-red: #FF3B3B;
+            --sushi-orange: #FF8E53;
+            --sushi-peach: #FFAD87;
+            --sushi-yellow: #F2C200;
+            --sushi-green: #9CB071;
+            --sushi-cream: #F2E6D1;
+            --sushi-neutral: #F0F2ED;
+            --sushi-dark: #2B2B2B;
+        }
+    </style>
+</head>
+<body style="background-color: var(--sushi-neutral);" class="font-sans antialiased text-gray-800">
+
+    <nav style="background-color: var(--sushi-peach);" class="p-4 shadow-md text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <span class="text-2xl font-black tracking-tighter">SUSHI<span class="opacity-70">CODE</span></span>
+            <ul class="flex gap-6 font-bold">
+                <li><a href="#" class="hover:text-white/80">Menu</a></li>
+                <li><a href="#" class="hover:text-white/80">Locations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-12">
+        
+        <section style="background-color: var(--sushi-cream);" class="rounded-3xl p-10 mb-12 flex flex-col md:flex-row items-center gap-8 border-b-8 border-orange-400/20">
+            <div class="flex-1 text-center md:text-left">
+                <h1 style="color: var(--sushi-red);" class="text-5xl md:text-7xl font-black mb-4 uppercase">
+                    Fresh <br> Aesthetics
+                </h1>
+                <p class="text-xl mb-6 opacity-80">This section uses the <strong>Cream</strong> background with <strong>Red</strong> text headers.</p>
+                <button style="background-color: var(--sushi-red);" class="text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:scale-105 transition-transform">
+                    Get Started
+                </button>
+            </div>
+            <div class="flex-1 grid grid-cols-2 gap-4">
+                <div style="background-color: var(--sushi-yellow);" class="aspect-square rounded-2xl flex items-center justify-center font-bold">Yellow</div>
+                <div style="background-color: var(--sushi-green);" class="aspect-square rounded-2xl flex items-center justify-center font-bold text-white">Green</div>
+            </div>
+        </section>
+
+        <h2 class="text-2xl font-bold mb-6 text-center">Palette Validation</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            
+            <div class="p-6 rounded-xl text-white shadow-lg" style="background-color: var(--sushi-red);">
+                <p class="font-bold">Red</p>
+                <p class="text-xs">#FF3B3B</p>
+            </div>
+            <div class="p-6 rounded-xl text-white shadow-lg" style="background-color: var(--sushi-orange);">
+                <p class="font-bold">Orange</p>
+                <p class="text-xs">#FF8E53</p>
+            </div>
+
+            <div class="p-6 rounded-xl text-black shadow-lg" style="background-color: var(--sushi-yellow);">
+                <p class="font-bold">Yellow</p>
+                <p class="text-xs">#F2C200</p>
+            </div>
+            <div class="p-6 rounded-xl text-white shadow-lg" style="background-color: var(--sushi-green);">
+                <p class="font-bold">Green</p>
+                <p class="text-xs">#9CB071</p>
+            </div>
+
+        </div>
+
+        <div style="border-left: 8px solid var(--sushi-green); background-color: white;" class="mt-12 p-6 rounded-r-xl shadow-sm">
+            <h3 style="color: var(--sushi-green);" class="font-bold text-lg uppercase tracking-widest">Success Message</h3>
+            <p>If you see a green border and green text above, your <strong>Sage Green</strong> variable is working perfectly.</p>
+        </div>
+
+        <div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        {% include "components/card.html" with title="Maguro" description="Premium bluefin tuna served with a touch of wasabi." price="12.00" %}
+        
+        {% include "components/card.html" with title="Sake" description="Buttery Atlantic salmon that melts in your mouth." price="10.50" %}
+        
+        {% include "components/card.html" with title="Unagi" description="Freshwater eel glazed in a sweet soy reduction." price="14.00" %}
+
+    </div>
+</div>
+
+    </main>
+
+
+
+    <footer class="mt-12 py-8 text-center opacity-50 text-sm">
+        Built with Django + Tailwind + Sushi Palette
+    </footer>
+
+</body>
+</html>

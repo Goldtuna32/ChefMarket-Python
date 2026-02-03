@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sushi-red: #FF3B3B;
+    --sushi-orange: #FF8E53;
+    --sushi-peach: #FFAD87;
+    --sushi-yellow: #F2C200;
+    --sushi-green: #9CB071;
+    --sushi-cream: #F2E6D1;
+    --sushi-neutral: #F0F2ED;
+    --sushi-dark: #2B2B2B;
+  }
+}
+
+/* You can also create custom components here */
+@layer components {
+  .btn-sushi {
+    @apply px-6 py-2 rounded-full font-bold transition-all duration-300 shadow-md;
+    background-color: var(--sushi-red);
+    color: white;
+  }
+  
+  .btn-sushi:hover {
+    background-color: var(--sushi-orange);
+    transform: translateY(-2px);
+  }
+}
+
+/**
+  * A catch-all path to Django template files, JavaScript, and Python files
+  * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
+  *
+  * If your final CSS file is not being updated after code changes, you may want to broaden or narrow
+  * the scope of this path.
+  */
+@source "../../../**/*.{html,py,js}";
+

@@ -1,0 +1,65 @@
+/* 1. Define the Palette Variables */
+:root {
+  --sushi-red: #FF3B3B;
+  --sushi-orange: #FF8E53;
+  --sushi-peach: #FFAD87;
+  --sushi-yellow: #F2C200;
+  --sushi-green: #9CB071;
+  --sushi-cream: #F2E6D1;
+  --sushi-neutral: #F0F2ED;
+  --sushi-dark: #2B2B2B; /* For text contrast */
+}
+
+/* 2. Global Styles */
+body {
+  background-color: var(--sushi-neutral);
+  color: var(--sushi-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 3. Bootstrap Overrides & Custom Classes */
+
+/* Primary Button Override */
+.btn-primary {
+  background-color: var(--sushi-red) !important;
+  border-color: var(--sushi-red) !important;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--sushi-orange) !important;
+  transform: translateY(-2px);
+}
+
+/* Custom Header/Navbar */
+.navbar-custom {
+  background-color: var(--sushi-peach);
+}
+
+/* Success/Action Elements */
+.text-accent {
+  color: var(--sushi-green);
+}
+
+.bg-highlight {
+  background-color: var(--sushi-yellow);
+}
+
+/* Cards & Containers */
+.card-sushi {
+  background-color: var(--sushi-cream);
+  border: 1px solid var(--sushi-peach);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Links */
+a {
+  color: var(--sushi-red);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--sushi-orange);
+}
