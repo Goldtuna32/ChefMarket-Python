@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db import transaction
+
+from ChefMarket.recipe.forms import RecipeForm
 from .models import Recipe
 from ChefMarket.ingredients.models import Ingredient
 
@@ -14,38 +16,20 @@ def recipe_detail(request, recipe_id):
 
 
 def recipe_create(request):
+    form = RecipeForm(request.POST or None)
+    
+    # Checking POST or GET
     if request.method == "POST":
-
-        # Adding Recipe with Ingredients
-        recipe_name = request.POST.get("recipe_name")
-        recipe_description = request.POST.get("recipe_description")
-        ingredients_id = request.POST.getlist("ingredients")
-
-        # Checking that ingredients are selected
-        if not ingredients_id:
-            return render(request,
-                "recipe_create.html",
-                {"error": "At least one ingredient must be selected.",
-                 },
-            )
-
-    # checking that ingredients are not empty
-    try:
-        with transaction.atomic():
-            recipe = Recipe.objects.create(
-                name=recipe_name, description=recipe_description
-            )
+        if form.is_valid():  
+            try:
+                # Start Communicating and Adding Data to the Database
+                with transaction.atomic():
+                    recipe = form.save()
             
-            # Linking Ingredients to Recipe
-            valid_ingredients = Ingredient.objects.filter(id__in=ingredients_id)
-            recipe.ingredients.add(*valid_ingredients)
-
-            # Return to recipe list after successful creation
-            return redirect("recipe_list")
-
-    # Return Error if something goes wrong
-    except Exception as e:
-        return render(request, "recipe_create.html", {"error": str(e)})
-
-    # If GET request, render the creation form
-    return render(request, "recipe_create.html", {"ingredients": all_ingredients})
+                return redirect("recipe_detail", recipe_id=recipe.id)
+            
+            except Exception as e:
+                form.add_error(None, str(e))
+                
+                
+    return render(request, "recipe_create.html", {"form": form})
