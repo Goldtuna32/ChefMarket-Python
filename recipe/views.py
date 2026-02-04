@@ -27,6 +27,7 @@ def recipe_create(request):
                 "recipe_create.html",
                 {"error": "At least one ingredient must be selected.",
                  },
+                
             )
 
     # checking that ingredients are not empty
