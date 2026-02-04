@@ -28,8 +28,8 @@ def recipe_create(request):
             
                 return redirect("recipe_detail", recipe_id=recipe.id)
             
-            except Exception as e:
-                form.add_error(None, str(e))
+            except:
+                form.add_error(form.errors)
                 
                 
     return render(request, "recipe_create.html", {"form": form})
