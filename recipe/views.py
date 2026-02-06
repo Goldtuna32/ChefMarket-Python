@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.db import transaction
 from django.http import JsonResponse
 
@@ -23,9 +23,18 @@ def recipe_alphabetical_list(request):
             grouped_recipes[letter].append(recipe)
     return render(request, "recipe_list.html", {"grouped_recipes": grouped_recipes})
 
-
+# Fetching Recipe Detail
 def recipe_detail(request, recipe_id):
-    return render(request, "recipe_detail.html", {"recipe_id": recipe_id})
+    
+    # using 'prefetch_related' making ingredients looting faster
+    recipe = get_object_or_404(Recipe.objects.prefetch_related('ingredients'), id=recipe_id)
+    
+    #condition if recipe existed or not
+    if not recipe:
+        return render(request,"error.html", {
+            "errors": "failed to load the recipe"
+        })
+    return render(request, "recipe_detail.html", {"recipe": recipe})
 
 
 #Recipe Create Using Djangon-Forms
