@@ -2,9 +2,8 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db import transaction
 from django.http import JsonResponse
 
-from ChefMarket.recipe.forms import RecipeForm
+from .forms import RecipeForm
 from .models import Recipe
-from ChefMarket.ingredients.models import Ingredient
 
 
 # Create your views here.
@@ -68,3 +67,6 @@ def load_more_by_letter(request):
     data = [{"id": r.id, "name": r.name} for r in more_recipes]
     
     return JsonResponse({'recipes': data, 'has_more': len(data) == 10})
+
+def recipe_edit(request):
+    return render(request, "recipe_edit.html")
