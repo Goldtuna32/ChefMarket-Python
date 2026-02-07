@@ -4,8 +4,6 @@ from django.http import JsonResponse
 
 from .forms import RecipeForm
 from .models import Recipe
-
-
 # Create your views here.
 
 # Fetch 10 Recipes from Each Alphabet
