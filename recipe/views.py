@@ -7,6 +7,7 @@ from ChefMarket.ingredients.models import Ingredient
 
 # Create your views here.
 
+
 # Fetch 10 Recipes from Each Alphabet
 def recipe_alphabetical_list(request):
     all_recipes = Recipe.objects.all().order_by("name")
@@ -21,6 +22,7 @@ def recipe_alphabetical_list(request):
             grouped_recipes[letter].append(recipe)
     return render(request, "recipe_list.html", {"grouped_recipes": grouped_recipes})
 
+
 # Load More Recipe by letter adding 10 offset to current one
 def load_more_by_letter(request):
     letter = request.GET.get("letter")
@@ -31,22 +33,21 @@ def load_more_by_letter(request):
     ]
 
     data = [{"id": r.id, "name": r.name} for r in more_recipes]
-    
-    return JsonResponse({'recipes': data, 'has_more': len(data) == 10})
 
+    return JsonResponse({"recipes": data, "has_more": len(data) == 10})
 
 
 # Fetching Recipe Detail
 def recipe_detail(request, recipe_id):
-    
+
     # using 'prefetch_related' making ingredients looting faster
-    recipe = get_object_or_404(Recipe.objects.prefetch_related('ingredients'), id=recipe_id)
-    
-    #condition if recipe existed or not
+    recipe = get_object_or_404(
+        Recipe.objects.prefetch_related("ingredients"), id=recipe_id
+    )
+
+    # condition if recipe existed or not
     if not recipe:
-        return render(request,"error.html", {
-            "errors": "failed to load the recipe"
-        })
+        return render(request, "error.html", {"errors": "failed to load the recipe"})
     return render(request, "recipe_detail.html", {"recipe": recipe})
 
 
@@ -60,11 +61,12 @@ def recipe_create(request):
 
         # Checking that ingredients are selected
         if not ingredients_id:
-            return render(request,
+            return render(
+                request,
                 "recipe_create.html",
-                {"error": "At least one ingredient must be selected.",
-                 },
-                
+                {
+                    "error": "At least one ingredient must be selected.",
+                },
             )
 
     # checking that ingredients are not empty
@@ -73,7 +75,7 @@ def recipe_create(request):
             recipe = Recipe.objects.create(
                 name=recipe_name, description=recipe_description
             )
-            
+
             # Linking Ingredients to Recipe
             valid_ingredients = Ingredient.objects.filter(id__in=ingredients_id)
             recipe.ingredients.add(*valid_ingredients)
