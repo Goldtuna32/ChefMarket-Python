@@ -1,0 +1,40 @@
+{% load tailwind_tags %}
+{% block content %}
+<div class="container mx-auto mt-10 p-6 max-w-4xl bg-white shadow-lg rounded-lg">
+    <div class="border-b pb-4 mb-6">
+        <h1 class="text-4xl font-bold text-gray-800">{{ recipe.name }}</h1>
+        <p class="text-sm text-gray-500 uppercase tracking-wide mt-1">Recipe Details</p>
+    </div>
+
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Description</h2>
+        <p class="text-gray-600 leading-relaxed">
+            {{ recipe.description|linebreaks }}
+        </p>
+    </div>
+
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Ingredients</h2>
+        <div class="flex flex-wrap gap-2">
+            {% for ingredient in recipe.ingredients.all %}
+            <span
+                class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium border border-orange-200">
+                {{ ingredient.name }}
+            </span>
+            {% empty %}
+            <p class="text-gray-500 italic">No ingredients listed for this recipe.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex space-x-4 border-t pt-6">
+        <a href="{% url 'recipe_list' %}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded transition duration-200">
+            ← Back to List
+        </a>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-200">
+            Edit Recipe
+        </button>
+    </div>
+</div>
+{% endblock %}

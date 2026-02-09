@@ -1,5 +1,47 @@
 {% load static tailwind_tags %}
+
+{% block title %} Recipe Create {% endblock %}
 {% block content %}
+<h1>Create a New Recipe</h1>
 
+    <form method="POST" action="">
+        {% csrf_token %}
 
+        {% if form.non_field_errors %}
+            <div class="error-message">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
 
+        <div class="form-section">
+            <label for="{{ form.name.id_for_label }}">Recipe Name:</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="error-message">{{ form.name.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-section">
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="error-message">{{ form.description.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-section">
+            <label for="{{ form.ingredients.id_for_label }}">Select Ingredients:</label>
+            <span class="help-text">(Hold Ctrl or Cmd to select multiple)</span>
+            <br>
+            {{ form.ingredients }}
+            {% if form.ingredients.errors %}
+                <div class="error-message">{{ form.ingredients.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit">Create Recipe</button>
+    </form>
+
+    <p><a href="{% url 'recipe_detail' %}">Back to List</a></p>
+
+    {% endblock %}
